@@ -1,0 +1,6 @@
+[submodule "board/max32620fthr"]
+	path = board/max32620fthr
+	url = git@github.com:maxim-ic-flow/max32620.git
+[submodule "max32620fthr"]
+	path = max32620fthr
+	url = git@github.com:mukymuk/max32620fthr.git
