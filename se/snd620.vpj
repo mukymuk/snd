@@ -1,0 +1,288 @@
+<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/10.0/vpj.dtd">
+<Project
+    Version="10.0"
+    VendorName="SlickEdit"
+    TemplateName="Other C/C++"
+    WorkingDir=".">
+    <Config
+        Name="Debug"
+        Type="cpp"
+        DebugCallbackName="gdb"
+        OutputFile="%bdsnd620"
+        CompilerConfigName="Latest Version">
+        <Menu>
+            <Target
+                Name="Compile"
+                MenuCaption="&amp;Compile"
+                CaptureOutputWith="ProcessBuffer"
+                OutputExts="*.o"
+                SaveOption="SaveCurrent"
+                RunFromDir="%rw">
+                <Exec CmdLine='cc -c -g %i %defd -o "%bd%n.o" "%f"'/>
+            </Target>
+            <Target
+                Name="Link"
+                MenuCaption="&amp;Link">
+                <Exec CmdLine='cc -g -o "%o" %f %libs'/>
+            </Target>
+            <Target
+                Name="Build"
+                MenuCaption="&amp;Build"
+                CaptureOutputWith="ProcessBuffer"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" build "%w" "%r"'/>
+            </Target>
+            <Target
+                Name="Rebuild"
+                MenuCaption="&amp;Rebuild"
+                CaptureOutputWith="ProcessBuffer"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" rebuild "%w" "%r"'/>
+            </Target>
+            <Target
+                Name="Debug"
+                MenuCaption="&amp;Debug"
+                SaveOption="SaveNone"
+                BuildFirst="1"
+                CaptureOutputWith="ProcessBuffer"
+                RunFromDir="%rw">
+                <Exec CmdLine='vsdebugio -prog "%o"'/>
+            </Target>
+            <Target
+                Name="Execute"
+                MenuCaption="E&amp;xecute"
+                SaveOption="SaveNone"
+                BuildFirst="1"
+                CaptureOutputWith="ProcessBuffer"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%o"'/>
+            </Target>
+        </Menu>
+    </Config>
+    <Config
+        Name="Release"
+        Type="cpp"
+        DebugCallbackName="gdb"
+        OutputFile="%bdsnd620"
+        CompilerConfigName="Latest Version">
+        <Menu>
+            <Target
+                Name="Compile"
+                MenuCaption="&amp;Compile"
+                CaptureOutputWith="ProcessBuffer"
+                SaveOption="SaveCurrent"
+                OutputExts="*.o"
+                RunFromDir="%rw">
+                <Exec CmdLine='cc -c -O %i %defd -o "%bd%n.o" "%f"'/>
+            </Target>
+            <Target
+                Name="Link"
+                MenuCaption="&amp;Link">
+                <Exec CmdLine='cc -O -o "%o" %f %libs'/>
+            </Target>
+            <Target
+                Name="Build"
+                MenuCaption="&amp;Build"
+                CaptureOutputWith="ProcessBuffer"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" build "%w" "%r"'/>
+            </Target>
+            <Target
+                Name="Rebuild"
+                MenuCaption="&amp;Rebuild"
+                CaptureOutputWith="ProcessBuffer"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" rebuild "%w" "%r"'/>
+            </Target>
+            <Target
+                Name="Debug"
+                MenuCaption="&amp;Debug"
+                SaveOption="SaveNone"
+                BuildFirst="1"
+                CaptureOutputWith="ProcessBuffer"
+                RunFromDir="%rw">
+                <Exec CmdLine='vsdebugio -prog "%o"'/>
+            </Target>
+            <Target
+                Name="Execute"
+                MenuCaption="E&amp;xecute"
+                SaveOption="SaveNone"
+                BuildFirst="1"
+                CaptureOutputWith="ProcessBuffer"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%o"'/>
+            </Target>
+        </Menu>
+    </Config>
+    <Rules Name="Compile">
+        <Rule
+            InputExts="*.s"
+            OutputExts="*.o"
+            LinkObject="1">
+            <Exec CmdLine='as -o "%bd%n.o" "%f"'/>
+        </Rule>
+    </Rules>
+    <CustomFolders>
+        <Folder
+            Name="Source Files"
+            Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.c++;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl;*.d;*.m;*.mm;*.go"></Folder>
+        <Folder
+            Name="Header Files"
+            Filters="*.h;*.H;*.hh;*.hpp;*.hxx;*.h++;*.inc;*.sh;*.cpy;*.if"></Folder>
+        <Folder
+            Name="Resource Files"
+            Filters="*.ico;*.cur;*.dlg"/>
+        <Folder
+            Name="Bitmaps"
+            Filters="*.bmp"/>
+        <Folder
+            Name="Other Files"
+            Filters=""/>
+    </CustomFolders>
+    <Files AutoFolders="DirectoryView">
+        <Folder Name="../">
+            <F N="../global.h"/>
+            <F N="../main.c"/>
+        </Folder>
+        <Folder Name="../cw">
+            <F N="../cw/MAX32620_MemoryMap.xml"/>
+            <F N="../cw/MAX32620_Startup.s"/>
+            <F N="../cw/max32620_Vectors.s"/>
+            <F N="../cw/platform.h"/>
+            <F N="../cw/thumb_crt0.s"/>
+        </Folder>
+        <Folder Name="../max32620fthr">
+            <Folder Name="csl">
+                <Folder Name="CMSIS">
+                    <Folder Name="Device">
+                        <Folder Name="Maxim">
+                            <Folder Name="MAX32620">
+                                <Folder Name="Include">
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/adc_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/aes_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/clkman_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/crc_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/flc_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/gpio_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/i2cm_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/i2cs_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/icc_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/ioman_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/maa_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/max32620.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/mxc_device.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/owm_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/pmu_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/prng_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/pt_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/pwrman_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/pwrseq_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/rtc_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/spib_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/spim_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/spis_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/spix_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/sysman_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/system_max32620.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/tmr_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/tpu_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/trim_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/uart_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/usb_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/wdt2_regs.h"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Include/wdt_regs.h"/>
+                                </Folder>
+                                <Folder Name="Source">
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Source/heap.c"/>
+                                    <F N="../max32620fthr/csl/CMSIS/Device/Maxim/MAX32620/Source/system_max32620.c"/>
+                                </Folder>
+                            </Folder>
+                        </Folder>
+                    </Folder>
+                    <Folder Name="Include">
+                        <F N="../max32620fthr/csl/CMSIS/Include/arm_common_tables.h"/>
+                        <F N="../max32620fthr/csl/CMSIS/Include/arm_const_structs.h"/>
+                        <F N="../max32620fthr/csl/CMSIS/Include/arm_math.h"/>
+                        <F N="../max32620fthr/csl/CMSIS/Include/core_cm3.h"/>
+                        <F N="../max32620fthr/csl/CMSIS/Include/core_cm4.h"/>
+                        <F N="../max32620fthr/csl/CMSIS/Include/core_cm4_simd.h"/>
+                        <F N="../max32620fthr/csl/CMSIS/Include/core_cmFunc.h"/>
+                        <F N="../max32620fthr/csl/CMSIS/Include/core_cmInstr.h"/>
+                    </Folder>
+                </Folder>
+                <Folder Name="PeriphDriver">
+                    <Folder Name="Include">
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/adc.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/aes.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/clkman.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/crc.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/flc.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/gpio.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/i2cm.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/i2cs.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/icc.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/ioman.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/lp.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/maa.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/mxc_assert.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/mxc_config.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/mxc_errors.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/mxc_lock.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/mxc_sys.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/nvic_table.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/owm.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/pmu.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/prng.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/pt.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/rtc.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/spim.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/spis.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/spix.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/tmr.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/tmr_utils.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/uart.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/wdt.h"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Include/wdt2.h"/>
+                    </Folder>
+                    <Folder Name="Source">
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/adc.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/aes.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/clkman.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/crc.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/flc.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/gpio.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/i2cm.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/i2cs.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/icc.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/ioman.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/lp.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/maa.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/mxc_assert.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/mxc_lock.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/mxc_sys.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/nvic_table.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/owm.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/pmu.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/prng.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/pt.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/rtc.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/spim.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/spis.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/spix.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/tmr.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/tmr_utils.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/uart.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/wdt.c"/>
+                        <F N="../max32620fthr/csl/PeriphDriver/Source/wdt2.c"/>
+                    </Folder>
+                </Folder>
+            </Folder>
+            <F N="../max32620fthr/board.c"/>
+            <F N="../max32620fthr/board.h"/>
+        </Folder>
+    </Files>
+</Project>

@@ -22,7 +22,8 @@
       arm_target_interface_type="SWD"
       arm_target_loader_applicable_loaders="Flash"
       arm_target_loader_default_loader="Flash"
-      c_user_include_directories="$(DeviceIncludePath);..\\board\\max32620fthr;..;."
+      c_preprocessor_definitions="TARGET=MAX32620;TARGET_REV=0x4332"
+      c_user_include_directories="$(DeviceIncludePath);..\\max32620fthr\\csl\\PeriphDriver\\Include;..\\max32620fthr\\csl\\CMSIS\\Include;..\\max32620fthr;..;."
       debug_register_definition_file="$(DeviceRegisterDefinitionFile)"
       gcc_entry_point="Reset_Handler"
       linker_memory_map_file="$(DeviceMemoryMapFile)"
@@ -59,10 +60,45 @@
     <folder Name="Source Files">
       <configuration Name="Common" filter="c;cpp;cxx;cc;h;s;asm;inc" />
       <file file_name="../main.c" />
-      <file file_name="../board/max32620fthr/board.c" />
       <file file_name="../global.h" />
       <file file_name="platform.h" />
-      <file file_name="../board/max32620fthr/board.h" />
+      <folder Name="max32620fthr">
+        <file file_name="../max32620fthr/board.c" />
+        <file file_name="../max32620fthr/board.h" />
+        <folder Name="csl">
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/adc.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/aes.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/clkman.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/crc.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/flc.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/gpio.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/i2cm.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/i2cs.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/icc.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/ioman.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/lp.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/maa.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/mxc_assert.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/mxc_lock.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/mxc_sys.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/nvic_table.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/owm.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/pmu.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/prng.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/pt.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/rtc.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/spim.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/spis.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/spix.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/tmr.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/tmr_utils.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/uart.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/wdt.c" />
+          <file file_name="../max32620fthr/csl/PeriphDriver/Source/wdt2.c" />
+        </folder>
+      </folder>
+      <file file_name="../mc.c" />
+      <file file_name="../mc.h" />
     </folder>
     <folder Name="System Files">
       <file file_name="thumb_crt0.s" />
