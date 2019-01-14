@@ -4,3 +4,4 @@
 #include "platform.h"
 
 #define ARRAY_COUNT(x) (sizeof(x)/sizeof(*(x)))
+#define NULL ((void*)0)

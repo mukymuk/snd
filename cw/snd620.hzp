@@ -23,7 +23,7 @@
       arm_target_loader_applicable_loaders="Flash"
       arm_target_loader_default_loader="Flash"
       c_preprocessor_definitions="TARGET=MAX32620;TARGET_REV=0x4332"
-      c_user_include_directories="$(DeviceIncludePath);..\\max32620fthr\\csl\\PeriphDriver\\Include;..\\max32620fthr\\csl\\CMSIS\\Include;..\\max32620fthr;..;.;..\\maxusb"
+      c_user_include_directories="..\\max32620fthr;..;.;..\\maxusb;$(DeviceIncludePath);..\\max32620fthr\\csl\\PeriphDriver\\Include;..\\max32620fthr\\csl\\CMSIS\\Include"
       debug_register_definition_file="$(DeviceRegisterDefinitionFile)"
       gcc_entry_point="Reset_Handler"
       linker_memory_map_file="$(DeviceMemoryMapFile)"
@@ -98,6 +98,11 @@
         </folder>
         <file file_name="../max32620fthr/cirbuf.c" />
         <file file_name="../max32620fthr/cirbuf.h" />
+        <file file_name="../max32620fthr/uart.c">
+          <configuration
+            Name="Common"
+            build_object_file_name="$(IntDir)/$(InputName)_board$(OBJ)" />
+        </file>
       </folder>
       <file file_name="../mc.c" />
       <file file_name="../mc.h" />
