@@ -23,7 +23,7 @@
       arm_target_loader_applicable_loaders="Flash"
       arm_target_loader_default_loader="Flash"
       c_preprocessor_definitions="TARGET=MAX32620;TARGET_REV=0x4332"
-      c_user_include_directories="$(DeviceIncludePath);..\\max32620fthr\\csl\\PeriphDriver\\Include;..\\max32620fthr\\csl\\CMSIS\\Include;..\\max32620fthr;..;."
+      c_user_include_directories="$(DeviceIncludePath);..\\max32620fthr\\csl\\PeriphDriver\\Include;..\\max32620fthr\\csl\\CMSIS\\Include;..\\max32620fthr;..;.;..\\maxusb"
       debug_register_definition_file="$(DeviceRegisterDefinitionFile)"
       gcc_entry_point="Reset_Handler"
       linker_memory_map_file="$(DeviceMemoryMapFile)"
@@ -96,9 +96,21 @@
           <file file_name="../max32620fthr/csl/PeriphDriver/Source/wdt.c" />
           <file file_name="../max32620fthr/csl/PeriphDriver/Source/wdt2.c" />
         </folder>
+        <file file_name="../max32620fthr/cirbuf.c" />
+        <file file_name="../max32620fthr/cirbuf.h" />
       </folder>
       <file file_name="../mc.c" />
       <file file_name="../mc.h" />
+      <folder Name="USB">
+        <file file_name="../MAXUSB/cdc_acm.c" />
+        <file file_name="../MAXUSB/enumerate.c" />
+        <file file_name="../MAXUSB/fifo.c" />
+        <file file_name="../MAXUSB/hid_kbd.c" />
+        <file file_name="../MAXUSB/hid_raw.c" />
+        <file file_name="../MAXUSB/msc.c" />
+        <file file_name="../MAXUSB/usb.c" />
+        <file file_name="../MAXUSB/usb_event.c" />
+      </folder>
     </folder>
     <folder Name="System Files">
       <file file_name="thumb_crt0.s" />
