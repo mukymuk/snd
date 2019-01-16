@@ -289,8 +289,8 @@
             <F N="../max32620fthr/cdcacm.h"/>
             <F N="../max32620fthr/cirbuf.c"/>
             <F N="../max32620fthr/cirbuf.h"/>
-            <F N="../max32620fthr/uart.c"/>
-            <F N="../max32620fthr/uart.h"/>
+            <F N="../max32620fthr/uartdrv.c"/>
+            <F N="../max32620fthr/uartdrv.h"/>
             <F N="../max32620fthr/usbuart.c"/>
             <F N="../max32620fthr/usbuart.h"/>
         </Folder>

@@ -84,8 +84,8 @@ static volatile int uart_read_complete;
 /* ************************************************************************** */
 int usb_test(void)
 {
-    uart_t uart;
-    uart_init( &uart, NULL );
+    uartdrv_t uart;
+    uartdrv_init( &uart, NULL );
 
     DBG(("\n\n***** MAX32620 USB CDC-ACM Example *****\n"));
     DBG(("Waiting for VBUS...\n"));

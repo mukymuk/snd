@@ -98,11 +98,8 @@
         </folder>
         <file file_name="../max32620fthr/cirbuf.c" />
         <file file_name="../max32620fthr/cirbuf.h" />
-        <file file_name="../max32620fthr/uart.c">
-          <configuration
-            Name="Common"
-            build_object_file_name="$(IntDir)/$(InputName)_board$(OBJ)" />
-        </file>
+        <file file_name="../max32620fthr/uartdrv.c" />
+        <file file_name="../max32620fthr/uartdrv.h" />
       </folder>
       <file file_name="../mc.c" />
       <file file_name="../mc.h" />
