@@ -84,8 +84,24 @@ static volatile int uart_read_complete;
 /* ************************************************************************** */
 int usb_test(void)
 {
-    uartdrv_t uart;
-    uartdrv_init( &uart, NULL );
+
+    static struct
+    {
+        uartdrv_t   uartdrv;
+        uint8_t     buffer[256];
+    }
+    s_uartdrv_debug;
+    static const uartdrv_config_t c_uartdrv_config_debug =
+    {
+        .uart_ndx = BOARD_UART1_P2_DEBUG,
+        .config = UARTDRV_CONFIG_BITS_8 | UARTDRV_CONFIG_PARITY_NONE,
+        .baud = UARTDRV_CONFIG_BAUD_SCALE4_115200,
+        .buffer = s_uartdrv_debug.buffer,
+        .size = sizeof(s_uartdrv_debug.buffer),
+        .pmu_ndx = 0,
+    };
+    uartdrv_common_clock( CLKMAN_SCALE_DIV_4 );
+    uartdrv_init( &s_uartdrv_debug.uartdrv, &c_uartdrv_config_debug );
 
     DBG(("\n\n***** MAX32620 USB CDC-ACM Example *****\n"));
     DBG(("Waiting for VBUS...\n"));
