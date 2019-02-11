@@ -96,23 +96,14 @@
           <file file_name="../max32620fthr/csl/PeriphDriver/Source/wdt.c" />
           <file file_name="../max32620fthr/csl/PeriphDriver/Source/wdt2.c" />
         </folder>
-        <file file_name="../max32620fthr/cirbuf.c" />
-        <file file_name="../max32620fthr/cirbuf.h" />
-        <file file_name="../max32620fthr/uartdrv.c" />
-        <file file_name="../max32620fthr/uartdrv.h" />
+        <file file_name="../max32620fthr/cbuf.c" />
+        <file file_name="../max32620fthr/lbuf.c" />
+        <file file_name="../max32620fthr/usbuart.c" />
       </folder>
       <file file_name="../mc.c" />
       <file file_name="../mc.h" />
-      <folder Name="USB">
-        <file file_name="../MAXUSB/cdc_acm.c" />
-        <file file_name="../MAXUSB/enumerate.c" />
-        <file file_name="../MAXUSB/fifo.c" />
-        <file file_name="../MAXUSB/hid_kbd.c" />
-        <file file_name="../MAXUSB/hid_raw.c" />
-        <file file_name="../MAXUSB/msc.c" />
-        <file file_name="../MAXUSB/usb.c" />
-        <file file_name="../MAXUSB/usb_event.c" />
-      </folder>
+      <file file_name="../cli.c" />
+      <file file_name="../cli.h" />
     </folder>
     <folder Name="System Files">
       <file file_name="thumb_crt0.s" />

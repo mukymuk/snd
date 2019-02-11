@@ -31,7 +31,7 @@
                 CaptureOutputWith="ProcessBuffer"
                 SaveOption="SaveWorkspaceFiles"
                 RunFromDir="%rw">
-                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" build "%w" "%r"'/>
+                <Exec CmdLine="build.bat"/>
             </Target>
             <Target
                 Name="Rebuild"
@@ -39,7 +39,7 @@
                 CaptureOutputWith="ProcessBuffer"
                 SaveOption="SaveWorkspaceFiles"
                 RunFromDir="%rw">
-                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" rebuild "%w" "%r"'/>
+                <Exec CmdLine="build.bat -rebuild"/>
             </Target>
             <Target
                 Name="Debug"
@@ -88,7 +88,7 @@
                 CaptureOutputWith="ProcessBuffer"
                 SaveOption="SaveWorkspaceFiles"
                 RunFromDir="%rw">
-                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" build "%w" "%r"'/>
+                <Exec CmdLine="build.bat"/>
             </Target>
             <Target
                 Name="Rebuild"
@@ -96,7 +96,7 @@
                 CaptureOutputWith="ProcessBuffer"
                 SaveOption="SaveWorkspaceFiles"
                 RunFromDir="%rw">
-                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" rebuild "%w" "%r"'/>
+                <Exec CmdLine="build.bat -rebuild"/>
             </Target>
             <Target
                 Name="Debug"
@@ -145,6 +145,8 @@
     </CustomFolders>
     <Files AutoFolders="DirectoryView">
         <Folder Name="../">
+            <F N="../cli.c"/>
+            <F N="../cli.h"/>
             <F N="../global.h"/>
             <F N="../main.c"/>
             <F N="../mc.c"/>
@@ -285,35 +287,12 @@
             </Folder>
             <F N="../max32620fthr/board.c"/>
             <F N="../max32620fthr/board.h"/>
-            <F N="../max32620fthr/cdcacm.c"/>
-            <F N="../max32620fthr/cdcacm.h"/>
-            <F N="../max32620fthr/cirbuf.c"/>
-            <F N="../max32620fthr/cirbuf.h"/>
-            <F N="../max32620fthr/uartdrv.c"/>
-            <F N="../max32620fthr/uartdrv.h"/>
+            <F N="../max32620fthr/cbuf.c"/>
+            <F N="../max32620fthr/cbuf.h"/>
+            <F N="../max32620fthr/lbuf.c"/>
+            <F N="../max32620fthr/lbuf.h"/>
             <F N="../max32620fthr/usbuart.c"/>
             <F N="../max32620fthr/usbuart.h"/>
-        </Folder>
-        <Folder Name="../MAXUSB">
-            <F N="../MAXUSB/cdc_acm.c"/>
-            <F N="../MAXUSB/cdc_acm.h"/>
-            <F N="../MAXUSB/enumerate.c"/>
-            <F N="../MAXUSB/enumerate.h"/>
-            <F N="../MAXUSB/fifo.c"/>
-            <F N="../MAXUSB/fifo.h"/>
-            <F N="../MAXUSB/hid.h"/>
-            <F N="../MAXUSB/hid_kbd.c"/>
-            <F N="../MAXUSB/hid_kbd.h"/>
-            <F N="../MAXUSB/hid_raw.c"/>
-            <F N="../MAXUSB/hid_raw.h"/>
-            <F N="../MAXUSB/msc.c"/>
-            <F N="../MAXUSB/msc.h"/>
-            <F N="../MAXUSB/usb.c"/>
-            <F N="../MAXUSB/usb.h"/>
-            <F N="../MAXUSB/usb_event.c"/>
-            <F N="../MAXUSB/usb_event.h"/>
-            <F N="../MAXUSB/usb_hwopt.h"/>
-            <F N="../MAXUSB/usb_protocol.h"/>
         </Folder>
     </Files>
 </Project>
