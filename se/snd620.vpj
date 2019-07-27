@@ -291,6 +291,10 @@
             <F N="../max32620fthr/cbuf.h"/>
             <F N="../max32620fthr/lbuf.c"/>
             <F N="../max32620fthr/lbuf.h"/>
+            <F N="../max32620fthr/pmu.c"/>
+            <F N="../max32620fthr/pmu.h"/>
+            <F N="../max32620fthr/uart.c"/>
+            <F N="../max32620fthr/uart.h"/>
             <F N="../max32620fthr/usbuart.c"/>
             <F N="../max32620fthr/usbuart.h"/>
         </Folder>

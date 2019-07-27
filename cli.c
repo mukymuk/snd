@@ -3,6 +3,7 @@
 #include "lbuf.h"
 #include "board.h"
 
+#include <stdlib.h>
 #include <ctype.h>
 
 #define MAX_LINE_SIZE   64
@@ -20,25 +21,61 @@
 typedef struct
 {
     const char * cmd;
+    const char * args;
     const char * help;
-    bool (*set)( char* );
-    void (*get)( void );
+    bool (*set)( const char * );
+    bool (*get)( void );
 }
 cmd_t;
 
-static void cmd_freq_get( void )
+static bool cmd_freq_get( void )
 {
 }
 
-static bool cmd_freq_set( char *p_args)
+static bool cmd_freq_set( const char *p_args)
 {
     int32_t freq_hz = atoi( p_args );
     board_snd( 0, freq_hz );
     return true;
 }
+
+static bool cmd_speed_set( const char *p_args )
+{
+}
+
+static bool cmd_speed_get( void )
+{
+}
+
+static bool cmd_acc_set( const char *p_args )
+{
+}
+
+static bool cmd_acc_get( void )
+{
+}
+
+static bool cmd_step_set( const char *p_args )
+{
+}
+
+static bool cmd_step_get( void )
+{
+}
+
+static bool cmd_line( const char *p_args )
+{
+}
+
 static const cmd_t s_cmd[] =
 {
-    { "freq", " = <frequency in Hz>", cmd_freq_set, cmd_freq_get }
+    { "freq", "<frequency in Hz>", "test step frequency", cmd_freq_set, cmd_freq_get },
+    { "speed", "<constant speed target>", "maximum linear speed", cmd_speed_set, cmd_speed_get },
+    { "acc", "<axis #>, <speed,acc[,speed2,acc2,...]>", "velocity/acceleration profile for axis #", cmd_acc_set, cmd_acc_get },
+    { "step", "<axis #>, <mm/step>","indicate distance per step for axis #", cmd_step_set, cmd_step_get },
+
+    { "line", "<x1, y1, x2, y2 [,speed]>", "constant speed move from x1,y1 to x2,y2", cmd_line, NULL }
+
 };
 
 static cbuf_t * s_p_cbuf_write;
