@@ -6,10 +6,10 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+#define EOL_IN		'\r'
+
 #define MAX_LINE_SIZE   64
 
-#define EOL         '\r'
-#define LF          '\n'
 #define ESC         0x1B
 #define BACKSPACE   0x7F
 
@@ -27,7 +27,6 @@ typedef struct
     bool (*get)( void );
 }
 cmd_t;
-
 
 static cbuf_t * s_p_cbuf_write;
 static cbuf_t * s_p_cbuf_read;
@@ -84,50 +83,52 @@ static const cmd_t s_cmd[] =
 
     { "line", "<x1, y1, x2, y2 [,speed]>", "constant speed move from x1,y1 to x2,y2", cmd_line, NULL },
 
-    { "help", NULL, NULL, cmd_help, NULL }
+    { "help", "you're looking at it", NULL, cmd_help, NULL }
 
 };
 
-#define SPACES 10
+
+
+static void write_string( const char * p_str )
+{
+	cbuf_write_string( s_p_cbuf_write, p_str );
+};
+
+static void write_line( const char * p_str )
+{
+	write_string(p_str);
+	write_string("\r\n");
+}
 
 static bool cmd_help( const char * p_args )
 {
+    #define SPACES 10
     static char * space = "          ";
-
     uint8_t i;
     uint32_t l;
     for(i=0;i<ARRAY_COUNT(s_cmd);i++)
     {
-        l = strlen( s_cmd[i].cmd );
-        cbuf_write( s_p_cbuf_write, s_cmd[i].cmd, l );
+       l = strlen( s_cmd[i].cmd );
+		write_string( s_cmd[i].cmd );
         if( s_cmd[i].args || s_cmd[i].help )
         {
             cbuf_write( s_p_cbuf_write, space, SPACES - l - 2 );
-            cbuf_write_string( s_p_cbuf_write, "- " );
+            write_string( "- " );
             if( s_cmd[i].args )
             {
-                cbuf_write_string( s_p_cbuf_write, s_cmd[i].args );
-                cbuf_write_string( s_p_cbuf_write, "\r\n" );
+                write_line( s_cmd[i].args );
             }
             if( s_cmd[i].help )
             {
                 cbuf_write( s_p_cbuf_write, space, SPACES );
-                cbuf_write_string( s_p_cbuf_write, s_cmd[i].help );
-                cbuf_write_string( s_p_cbuf_write, "\r\n" );
+                write_line( s_cmd[i].help );
             }
         }
         else
         {
-            cbuf_write_string( s_p_cbuf_write, "\r\n" );
+			write_line(NULL);
         }
     }
-}
-
-static void write_line( const char * p_str )
-{
-    static const uint8_t line[2] = { LF, EOL };
-    cbuf_write_string( s_p_cbuf_write, p_str );
-    cbuf_write( s_p_cbuf_write, line, sizeof(line) );
 }
 
 static void prompt( void )
@@ -154,14 +155,12 @@ void cli_init( cbuf_t * p_cbuf_read, cbuf_t * p_cbuf_write  )
     s_p_cbuf_write = p_cbuf_write;
     s_p_cbuf_read = p_cbuf_read;
     lbuf_init( &lbuf_cmd, lbuf_cmd_buffer, sizeof(lbuf_cmd_buffer) );
+	cbuf_write_string( s_p_cbuf_write, "\033c" );
     prompt();
 }
 
-#define TERMINATOR '\n'
-
 void cli_event(void)
 {
-
     uint8_t c;
     char * p_cmd;
 
@@ -174,15 +173,13 @@ void cli_event(void)
         {
             if( lbuf_cmd.write_ndx )
             {
-                //cbuf_write( s_p_cbuf_write, &c, sizeof(c) );
                 lbuf_cmd.write_ndx--;
             }
             continue;
         }
-      //  cbuf_write( s_p_cbuf_write, &c, sizeof(c) );
-        if( c == EOL )
-        {
-          //  cbuf_write_byte( s_p_cbuf_write, LF );
+		if( c == EOL_IN )
+		{
+			write_line( NULL );
             lbuf_write_byte( &lbuf_cmd, 0 );
             char * p_cmd = skip_space( lbuf_cmd_buffer );
             char * p_action = skip_letters( p_cmd );
@@ -209,22 +206,22 @@ void cli_event(void)
                     }
                     else
                     {
-                        cbuf_write_string( s_p_cbuf_write, s_cmd[i].cmd );
-                        write_line( s_cmd[i].help );
+                        write_line( "syntax error" );
                         goto cmd_dispatched;
                     }
                 }
             }
-cmd_dispatched:
             if( i==ARRAY_COUNT(s_cmd) )
                 write_line( "unknown command" );
-            else
-                prompt();
+cmd_dispatched:
+            prompt();
             lbuf_reset( &lbuf_cmd );
         }
         else
         {
+			c = tolower(c);
             lbuf_write_byte( &lbuf_cmd, c );
+            cbuf_write_byte( s_p_cbuf_write, c );
         }
     }
 }
