@@ -2,6 +2,8 @@
 #include "cli.h"
 #include "lbuf.h"
 #include "board.h"
+#include "ps.h"
+#include "config.h"
 
 #include <stdlib.h>
 #include <ctype.h>
@@ -72,6 +74,12 @@ static bool cmd_line( const char *p_args )
 {
 }
 
+static bool cmd_save( const char *p_args )
+{
+	ps_write( &g_config, CONFIG_VERSION, sizeof(g_config));
+}
+
+
 static bool cmd_help( const char * p_args );
 
 static const cmd_t s_cmd[] =
@@ -82,7 +90,7 @@ static const cmd_t s_cmd[] =
     { "step", "<axis #>, <mm/step>","indicate distance per step for axis #", cmd_step_set, cmd_step_get },
 
     { "line", "<x1, y1, x2, y2 [,speed]>", "constant speed move from x1,y1 to x2,y2", cmd_line, NULL },
-
+	{ "save", NULL, "save configuration to internal flash", cmd_save, NULL },
     { "help", "you're looking at it", NULL, cmd_help, NULL }
 
 };

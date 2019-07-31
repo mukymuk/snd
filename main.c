@@ -3,7 +3,8 @@
 #include "mc.h"
 #include "usbuart.h"
 #include "cli.h"
-#include "pmu.h"
+#include "ps.h"
+#include "config.h"
 
 //CBUF(s_usb_write,256);
 //CBUF(s_usb_read,128);
@@ -11,9 +12,9 @@
 CBUF(s_uart_write,256);
 CBUF(s_uart_read,1);
 
-
 static uart_t s_uart;
 
+config_t g_config;
 
 void main(void)
 {
@@ -26,6 +27,8 @@ void main(void)
     CBUF_INIT( s_uart_write );
 
     //usbuart_init( &s_usb_read.cbuf, &s_usb_write.cbuf );
+
+	ps_read( &g_config, CONFIG_VERSION, sizeof(g_config) );
 
     uart_common_clock( CLKMAN_SCALE_DIV_1 );
     uart_init( &s_uart, &s_uart_read.cbuf, &s_uart_write.cbuf, BOARD_UART_DBG,

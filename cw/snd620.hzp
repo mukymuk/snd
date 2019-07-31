@@ -30,13 +30,14 @@
       linker_printf_fmt_level="long"
       linker_printf_fp_enabled="Float"
       linker_scanf_fmt_level="long"
-      linker_section_placement_file="$(StudioDir)/targets/Cortex_M/flash_placement.xml"
+      linker_section_placement_file="flash_placement.xml"
       macros="DeviceIncludePath=$(TargetsDir)/MAX32620/CMSIS/Libraries/Device/Maxim/MAX32620/Include;DeviceHeaderFile=$(TargetsDir)/MAX32620/CMSIS/Libraries/Device/Maxim/MAX32620/Include/max32620.h;DeviceLoaderFile=$(TargetsDir)/MAX32620/Loader/MAX32620_Loader.elf;DeviceMemoryMapFile=$(TargetsDir)/MAX32620/XML/MAX32620_MemoryMap.xml;DeviceRegisterDefinitionFile=$(TargetsDir)/MAX32620/XML/max32620_Registers.xml;DeviceSystemFile=$(TargetsDir)/MAX32620/CMSIS/Libraries/Device/Maxim/MAX32620/Source/system_max32620.c;DeviceVectorsFile=$(TargetsDir)/MAX32620/Source/max32620_Vectors.s;DeviceFamily=MAX32620"
       package_dependencies="MAX32620"
       project_directory=""
       project_type="Executable"
       property_groups_file_path="$(TargetsDir)/MAX32620/XML/property_groups.xml"
       target_get_partname_script="GetPartName()"
+      target_loader_erase_all="No"
       target_match_partname_script="MatchPartName(&quot;$(Target)&quot;)"
       target_reset_script="Reset();"
       target_trace_initialize_script="EnableTrace(&quot;$(TraceInterfaceType)&quot;)" />
@@ -110,11 +111,13 @@
             Name="Common"
             build_object_file_name="$(IntDir)/$(InputName)a$(OBJ)" />
         </file>
+        <file file_name="../max32620fthr/ps.c" />
       </folder>
       <file file_name="../mc.c" />
       <file file_name="../mc.h" />
       <file file_name="../cli.c" />
       <file file_name="../cli.h" />
+      <file file_name="../config.h" />
     </folder>
     <folder Name="System Files">
       <file file_name="thumb_crt0.s" />

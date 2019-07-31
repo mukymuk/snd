@@ -147,6 +147,7 @@
         <Folder Name="../">
             <F N="../cli.c"/>
             <F N="../cli.h"/>
+            <F N="../config.h"/>
             <F N="../global.h"/>
             <F N="../main.c"/>
             <F N="../mc.c"/>
@@ -293,6 +294,8 @@
             <F N="../max32620fthr/lbuf.h"/>
             <F N="../max32620fthr/pmu.c"/>
             <F N="../max32620fthr/pmu.h"/>
+            <F N="../max32620fthr/ps.c"/>
+            <F N="../max32620fthr/ps.h"/>
             <F N="../max32620fthr/uart.c"/>
             <F N="../max32620fthr/uart.h"/>
             <F N="../max32620fthr/usbuart.c"/>
