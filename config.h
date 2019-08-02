@@ -14,8 +14,8 @@ config_sa_t;
 typedef struct
 {
 	float_t			speed;
-	float_t			axis[AXIS_COUNT];
-	config_sa_t		speed_acc[SPEED_ACC_COUNT];
+	float_t			step[AXIS_COUNT];
+	config_sa_t		speed_acc[AXIS_COUNT][SPEED_ACC_COUNT];
 }
 config_t;
 

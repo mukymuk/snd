@@ -28,7 +28,7 @@ void main(void)
 
     //usbuart_init( &s_usb_read.cbuf, &s_usb_write.cbuf );
 
-	ps_read( &g_config, CONFIG_VERSION, sizeof(g_config) );
+    ps_read( &g_config, CONFIG_VERSION, sizeof(g_config) );
 
     uart_common_clock( CLKMAN_SCALE_DIV_1 );
     uart_init( &s_uart, &s_uart_read.cbuf, &s_uart_write.cbuf, BOARD_UART_DBG,
@@ -39,9 +39,8 @@ void main(void)
     uint32_t size;
 
 
- //   board_motor_enable(0, true);
- //   board_snd(0,-1);
-
+    board_motor_enable(0, true);
+ 
     while( 1 )
     {
         board_sleep();

@@ -125,6 +125,13 @@ float mc_calc_acc( uint32_t start_period, uint32_t end_period, uint32_t time )
     return accel;
 }
 
+void mc_set_position( const mc_point_t * p_point )
+{
+}
+
+void mc_get_position( mc_point_t * p_point )
+{
+}
 void mc_timer_isr( uint32_t timer_ndx )
 {
 }
