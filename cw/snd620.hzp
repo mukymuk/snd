@@ -118,6 +118,7 @@
       <file file_name="../cli.c" />
       <file file_name="../cli.h" />
       <file file_name="../config.h" />
+      <file file_name="../program.c" />
     </folder>
     <folder Name="System Files">
       <file file_name="thumb_crt0.s" />

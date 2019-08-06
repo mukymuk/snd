@@ -11,13 +11,10 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-#define EOL_IN      '\r'
-
-#define MAX_LINE_SIZE   64
-
-#define ESC         0x1B
-#define BACKSPACE   0x7F
-
+#define EOL_IN              '\r'
+#define MAX_LINE_SIZE       64
+#define ESC                 0x1B
+#define BACKSPACE           0x7F
 #define ACTION_ASSIGNMENT   '='
 #define ACTION_QUERY        '?'
 #define ACTION_COMMAND      0
@@ -79,12 +76,10 @@ static char * next_arg( const char * p )
     return skip_space(p);
 }
 
-static uint8_t s_axis_count;
-
 static const char * get_axis( int32_t *p_axis, const char *p_args )
 {
     int32_t axis = atoi( p_args );
-    if( axis < 0 || axis >= s_axis_count )
+    if( axis < 0 || axis >= g_config.axis_count )
         return NULL;
     *p_axis = axis;
     return next_arg( p_args );
@@ -147,7 +142,7 @@ static bool cmd_acc_set( const char *p_args )
 static bool cmd_acc_get( void )
 {
     uint32_t i,j;
-    for(i=0;i<s_axis_count;i++)
+    for(i=0;i<g_config.axis_count;i++)
     {
         if( g_config.speed_acc[i][0].speed )
         {
@@ -183,17 +178,16 @@ static bool cmd_step_set( const char *p_args )
 static bool cmd_step_get( void )
 {
     uint8_t i;
-    for(i=0;i<s_axis_count;i++)
+    for(i=0;i<g_config.axis_count;i++)
     {
         get_float( g_config.step[i] );
     }
     return true;
 }
 
-
 static bool cmd_save( const char *p_args )
 {
-    ps_write( &g_config, CONFIG_VERSION, sizeof(g_config));
+    ps_write( g_config.ps, &g_config, sizeof(g_config));
     return true;
 }
 
@@ -205,10 +199,6 @@ static bool cmd_reset( const char *p_args )
 
 static bool cmd_speed_set( const char *p_args )
 {
-    int32_t axis = atoi( p_args );
-    if( axis < 0 || axis >= s_axis_count )
-        return NULL;
-
     return set_float( &g_config.speed, p_args );
 }
 
@@ -220,14 +210,14 @@ static bool cmd_speed_get( void )
 static bool cmd_pos_set( const char *p_args )
 {
     bool boo = false;
-    mc_point_t point[AXIS_COUNT];
+    float_t point[AXIS_COUNT];
     uint8_t i;
     for(i=0;i<AXIS_COUNT;i++)
     {
-        set_float( &point[i].x, p_args );
+        set_float( &point[i], p_args );
         if( p_args = next_arg(p_args) )
         {
-            set_float( &point[i].y, p_args );
+            set_float( &point[i], p_args );
             if( !(p_args = next_arg(p_args) ) )
             {
                 break;
@@ -239,7 +229,7 @@ static bool cmd_pos_set( const char *p_args )
             break;
         }
     }
-    if( i != s_axis_count )
+    if( i < g_config.axis_count )
         boo = true;
 
     if( !boo )
@@ -258,21 +248,33 @@ static bool cmd_axis_set( const char *p_args )
     int32_t axis_count = atoi( p_args );
     if( axis_count < 0 || axis_count >= AXIS_COUNT )
         return false;
-    s_axis_count = axis_count;
+    g_config.axis_count = axis_count;
     return true;
 }
 
 static bool cmd_axis_get( void )
 {
-    snprintf( lbuf_cmd_buffer, sizeof(lbuf_cmd_buffer), "%d", s_axis_count );
+    snprintf( lbuf_cmd_buffer, sizeof(lbuf_cmd_buffer), "%d", g_config.axis_count );
     write_line( lbuf_cmd_buffer );
     return true;
 }
 
+static bool cmd_begin( const char * p_args )
+{
+    mc_begin();
+    return true;
+}
 
+static bool cmd_end( void )
+{
+    mc_end();
+    return true;
+}
 static const cmd_t s_cmd[] =
 {
     { "axis", "<axis count>", "number of axis supported", cmd_axis_set, cmd_axis_get },
+    { "begin", NULL, "begin accumulating positions", cmd_begin, NULL },
+    { "end", NULL, "discontinue accumulating positions", cmd_begin, NULL },
     { "speed", NULL, "default speed in mm/s", cmd_speed_set, cmd_speed_get },
     { "freq", "<frequency in Hz>", "test step frequency", cmd_freq_set, cmd_freq_get },
     { "acc", "<axis #>, <speed,acc[,speed2,acc2,...]>", "velocity/acceleration profile for axis # in mm/sec^2", cmd_acc_set, cmd_acc_get },

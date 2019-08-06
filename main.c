@@ -16,6 +16,13 @@ static uart_t s_uart;
 
 config_t g_config;
 
+static const ps_t s_ps_config =
+{
+    .address = 0x1FE000,
+    .size = 8192/4,
+    .version = 1000
+};
+
 void main(void)
 {
     bool a;
@@ -28,7 +35,10 @@ void main(void)
 
     //usbuart_init( &s_usb_read.cbuf, &s_usb_write.cbuf );
 
-    ps_read( &g_config, CONFIG_VERSION, sizeof(g_config) );
+    const config_t * p_config;
+    g_config.ps = &s_ps_config;
+    if( sizeof(config_t) == ps_locate( &s_ps_config, (void**)&p_config ) )
+        memcpy( &g_config, (void*)p_config, sizeof(config_t) );
 
     uart_common_clock( CLKMAN_SCALE_DIV_1 );
     uart_init( &s_uart, &s_uart_read.cbuf, &s_uart_write.cbuf, BOARD_UART_DBG,
@@ -36,7 +46,6 @@ void main(void)
     cli_init( &s_uart_read.cbuf, &s_uart_write.cbuf );
 
     void *p;
-    uint32_t size;
 
 
     board_motor_enable(0, true);

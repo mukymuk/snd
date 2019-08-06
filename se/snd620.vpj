@@ -152,6 +152,8 @@
             <F N="../main.c"/>
             <F N="../mc.c"/>
             <F N="../mc.h"/>
+            <F N="../program.c"/>
+            <F N="../program.h"/>
         </Folder>
         <Folder Name="../cw">
             <F N="../cw/MAX32620_MemoryMap.xml"/>

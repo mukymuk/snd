@@ -1,7 +1,7 @@
 #include "global.h"
 #include "mc.h"
 #include "cbuf.h"
-
+#include "config.h"
 
 typedef struct
 {
@@ -11,7 +11,6 @@ typedef struct
 }
 mc_segment_t;
 
-
 typedef struct
 {
     float_t     v_max;
@@ -19,22 +18,12 @@ typedef struct
     float_t     coef;
     float_t     v;
     uint32_t    timer_ndx;
+    int32_t     position;
 }
 mc_axis_t;
 
-/*
-static uint32_t next_step( mc_axis_t * p_axis )
-{
-    float_t vi = p_axis->v;
-    float_t vf;
+static const float_t s_tick = 2.0; ///RO_FREQ;
 
-    vf = 0.5f * ( vi + sqrtf( 4.0f*a + vi*vi ) );
-
-    float_t va = board_snd( vf );
-    p_axis->v = va;
-
-}
-*/
 float_t mc_profile( mc_segment_t *p_segment, uint32_t count, float_t vi, float_t vt, float_t * p_vf, float_t a, float_t d )
 {
     const float_t sr2 = 1.41421356f;
@@ -87,8 +76,6 @@ float_t mc_profile( mc_segment_t *p_segment, uint32_t count, float_t vi, float_t
     return count;
 }
 
-static const float_t s_tick = 2.0; ///RO_FREQ;
-
 float_t mc_a( float_t vi, float_t vf, float_t time )
 {
     return (vf - vi) / time;
@@ -125,11 +112,20 @@ float mc_calc_acc( uint32_t start_period, uint32_t end_period, uint32_t time )
     return accel;
 }
 
-void mc_set_position( const mc_point_t * p_point )
+void mc_begin( void )
 {
 }
 
-void mc_get_position( mc_point_t * p_point )
+void mc_end( void )
+{
+
+}
+
+void mc_set_position( const float_t * p_point )
+{
+}
+
+void mc_get_position( float_t * p_point )
 {
 }
 void mc_timer_isr( uint32_t timer_ndx )
