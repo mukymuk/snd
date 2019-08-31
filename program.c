@@ -3,44 +3,54 @@
 #include "config.h"
 
 #define CMD_END     0
-#define CMD_VECTOR  1
+#define CMD_LINE    1
 
-static uint32_t s_program[8192];
-static uint32_t s_ndx;
-static uint32_t s_size;
-static bool s_error;
 
-void program_begin( void )
+void program_begin( program_t * p_program )
 {
-    s_size = 0;
-    s_ndx = 0;
-    s_error = false;
+    p_program->ndx = 0;
 }
 
-void program_vector( const float_t * p_vector )
+void program_end( program_t * p_program )
 {
-    if( s_ndx + g_config.axis_count + 1 <= ARRAY_COUNT(s_program) )
+    uint32_t * p = p_program->program;
+    p[p_program->ndx] = CMD_END;
+    p_program->ndx = 0;
+}
+
+bool program_line( program_t * p_program, const float_t * p_vector )
+{
+    uint32_t * p = p_program->program;
+
+    if( p_program->ndx + g_config.axis_count + 1 <= p_program->size )
     {
-        s_program[s_ndx++] = CMD_VECTOR;
-        memcpy( &s_program[s_ndx], p_vector, g_config.axis_count * sizeof(float_t) );
-        s_ndx += g_config.axis_count;
+        p[p_program->ndx++] = CMD_LINE;
+        memcpy( &p[p_program->ndx], p_vector, g_config.axis_count * sizeof(float_t) );
+        p_program->ndx += g_config.axis_count;
+        return true;
     }
-    else
-        s_error = true;
+    return false;
 }
 
-void program_end( void )
+typedef void (*mc_dispatch_line_t)( const float_t * p_vector);
+typedef struct
 {
-    s_size = s_ndx;
-    s_ndx = 0;
-
+    mc_dispatch_line_t mc_dispatch_line;
 }
+mc_dispatch_t;
 
-void program_execute( void )
+bool program_fetch( mc_dispatch_t * p_dispatch, program_t * p_program )
 {
+    uint32_t * p = p_program->program;
+    switch( p[p_program->ndx++] )
+    {
+        case CMD_LINE:
+        {
+            p_dispatch->mc_dispatch_line( (const float_t*)&p[p_program->ndx] );
+            p_program->ndx += g_config.axis_count;
+            return true;
+        }
+    }
+    return false;
 }
 
-bool program_error( void )
-{
-    return s_error;
-}
